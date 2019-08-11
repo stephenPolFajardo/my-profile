@@ -6,18 +6,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <div class="container">
-        <div className="row">
-            <div className="col-md">
-              <img src="" alt="" className="img-thumbnail"></img>
-            </div>
-            <div className="col-md">
-            <h1 className="text-white-50 bg-dark">Stephen Pol Fajardo</h1>
-            <p className="col-2">To take up any challenging position when my knowledge can be utilized for the maximum benefit of the organization. Open to new ideas and an attitude as well as potential to group and implement new technologies.
-            </p>
-            </div>
+        <div class="container" id="main">
+            <span id="turn">Play</span>
+            <div class="box" id="box1"></div>
+            <div class="box" id="box2"></div>
+            <div class="box" id="box3"></div>
+            <div class="box" id="box4"></div>
+            <div class="box" id="box5"></div>
+            <div class="box" id="box6"></div>
+            <div class="box" id="box7"></div>
+            <div class="box" id="box8"></div>
+            <div class="box" id="box9"></div>
         </div>
-        </div>
+        <!-- Play Again And Reset All Info -->
+        <button onclick="replay()">Play Again</button>
       </header>
     </div>
   );
