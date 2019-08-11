@@ -18,7 +18,6 @@ function App() {
             <div class="box" id="box8"></div>
             <div class="box" id="box9"></div>
         </div>
-        <!-- Play Again And Reset All Info -->
         <button onclick="replay()">Play Again</button>
       </header>
     </div>
