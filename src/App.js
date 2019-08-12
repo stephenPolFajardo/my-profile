@@ -93,15 +93,15 @@ class App extends Component {
         <div id="head" />
         <span id="turn">Play</span>
         <div id="board" onClick={e => this.clicked(e.target)}>
-          <div className="square" data-square="0" />
-          <div className="square" data-square="1" />
-          <div className="square" data-square="2" />
-          <div className="square" data-square="3" />
-          <div className="square" data-square="4" />
-          <div className="square" data-square="5" />
-          <div className="square" data-square="6" />
-          <div className="square" data-square="7" />
-          <div className="square" data-square="8" />
+          <div className="box" data-square="0" />
+          <div className="box" data-square="1" />
+          <div className="box" data-square="2" />
+          <div className="box" data-square="3" />
+          <div className="box" data-square="4" />
+          <div className="box" data-square="5" />
+          <div className="box" data-square="6" />
+          <div className="box" data-square="7" />
+          <div className="box" data-square="8" />
         </div>
         <button onClick={this.replayGame}>Play Again</button>
       </div>
