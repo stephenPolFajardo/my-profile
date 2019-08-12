@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import "./App.css";
+import "./styles.css";
 
 class App extends Component {
   constructor() {
@@ -26,6 +26,7 @@ class App extends Component {
 
       this.gameState.turn = this.gameState.turn === "X" ? "O" : "X";
       this.gameState.totalMoves++;
+      document.getElementById('turn').innerHTML = this.gameState.turn + " " + "Is your turn now";
     }
 
     var result = this.checkWinner();
@@ -51,7 +52,7 @@ class App extends Component {
     }
   }
 
-  checkWinner() {
+  checkWinner(square) {
     var moves = [
       [0, 3, 6],
       [1, 4, 7],
@@ -84,6 +85,7 @@ class App extends Component {
       <div id="game">
         <div id="status">{this.state.winnerLine}</div>
         <div id="head" />
+        <span id="turn">Play</span>
         <div id="board" onClick={e => this.clicked(e.target)}>
           <div className="square" data-square="0" />
           <div className="square" data-square="1" />
