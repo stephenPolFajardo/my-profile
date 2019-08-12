@@ -13,23 +13,28 @@ class App extends Component {
       gameLocked: false,
       gameEnded: false,
       board: Array(9).fill(""),
-      totalMoves: 0
+      totalMoves: 0,
+      tokenPlace: []
     };
+    this.historList = [];
   }
 
   clicked(box) {
     if (this.gameState.gameEnded || this.gameState.gameLocked) return;
-
-    if (this.gameState.board[box.dataset.square] === "") {
-      this.gameState.board[box.dataset.square] = this.gameState.turn;
+    if (this.gameState.board[box.dataset.set] === "") {
+      this.gameState.board[box.dataset.set] = this.gameState.turn;
       box.innerText = this.gameState.turn;
-
       this.gameState.turn = this.gameState.turn === "X" ? "O" : "X";
       this.gameState.totalMoves++;
+
       if (this.gameState.turn === "X") {
         document.getElementById("turn").innerHTML = "Player 1 Is your turn now";
+        let p2 = "Player 2 move " + box.id;
+        this.gameState.tokenPlace.push(p2);
       } else {
         document.getElementById("turn").innerHTML = "Player 2 Is your turn now";
+        let p2 = "Player 1 move " + box.id;
+        this.gameState.tokenPlace.push(p2);
       }
     }
 
@@ -42,6 +47,9 @@ class App extends Component {
         winner: "X",
         winnerLine: "Player 1 is win!"
       });
+      for (const [index, value] of this.gameState.tokenPlace.entries()) {
+        this.historList.push(<li key={index}>{value}</li>);
+      }
     } else if (result === "O") {
       this.gameState.gameEnded = true;
       document.getElementById("turn").innerHTML = "Congratulations";
@@ -49,6 +57,9 @@ class App extends Component {
         winner: "O",
         winnerLine: "Player 2 is win!"
       });
+      for (const [index, value] of this.gameState.tokenPlace.entries()) {
+        this.historList.push(<li key={index}>{value}</li>);
+      }
     } else if (result === "draw") {
       this.gameState.gameEnded = true;
       document.getElementById("turn").innerHTML = "Play Again";
@@ -56,6 +67,9 @@ class App extends Component {
         winner: "draw",
         winnerLine: "This match is draw"
       });
+      for (const [index, value] of this.gameState.tokenPlace.entries()) {
+        this.historList.push(<li key={index}>{value}</li>);
+      }
     }
   }
 
@@ -94,17 +108,20 @@ class App extends Component {
         <div id="head" />
         <span id="turn">Play</span>
         <div id="board" onClick={e => this.clicked(e.target)}>
-          <div className="box" data-square="0" />
-          <div className="box" data-square="1" />
-          <div className="box" data-square="2" />
-          <div className="box" data-square="3" />
-          <div className="box" data-square="4" />
-          <div className="box" data-square="5" />
-          <div className="box" data-square="6" />
-          <div className="box" data-square="7" />
-          <div className="box" data-square="8" />
+          <div id="0" className="box" data-set="0" />
+          <div id="1" className="box" data-set="1" />
+          <div id="2" className="box" data-set="2" />
+          <div id="3" className="box" data-set="3" />
+          <div id="4" className="box" data-set="4" />
+          <div id="5" className="box" data-set="5" />
+          <div id="6" className="box" data-set="6" />
+          <div id="7" className="box" data-set="7" />
+          <div id="8" className="box" data-set="8" />
         </div>
         <button onClick={this.replayGame}>Play Again</button>
+        <div id="tokenPlace">
+          <ul>{this.historList}</ul>
+        </div>
       </div>
     );
   }
