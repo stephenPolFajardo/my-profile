@@ -26,22 +26,28 @@ class App extends Component {
 
       this.gameState.turn = this.gameState.turn === "X" ? "O" : "X";
       this.gameState.totalMoves++;
-      document.getElementById('turn').innerHTML = this.gameState.turn + " " + "Is your turn now";
+      if (this.gameState.turn === "X") {
+        document.getElementById("turn").innerHTML = "Player 1 Is your turn now";
+      } else {
+        document.getElementById("turn").innerHTML = "Player 2 Is your turn now";
+      }
     }
 
     var result = this.checkWinner();
 
     if (result === "X") {
       this.gameState.gameEnded = true;
+      document.getElementById("turn").innerHTML = "Congratulations";
       this.setState({
         winner: "X",
-        winnerLine: "Match won by X"
+        winnerLine: "Player 1 is win!"
       });
     } else if (result === "O") {
       this.gameState.gameEnded = true;
+      document.getElementById("turn").innerHTML = "Congratulations";
       this.setState({
         winner: "O",
-        winnerLine: "Match won by O"
+        winnerLine: "Player 2 is win!"
       });
     } else if (result === "draw") {
       this.gameState.gameEnded = true;
