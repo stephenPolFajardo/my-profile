@@ -76,7 +76,7 @@ class App extends Component {
   }
 
   replayGame() {
-    document.getElementsByClassName("square").innerHTML = "";
+    window.location.reload();
   }
 
   render() {
