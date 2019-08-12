@@ -51,9 +51,10 @@ class App extends Component {
       });
     } else if (result === "draw") {
       this.gameState.gameEnded = true;
+      document.getElementById("turn").innerHTML = "Play Again";
       this.setState({
         winner: "draw",
-        winnerLine: "Match is draw"
+        winnerLine: "This match is draw"
       });
     }
   }
