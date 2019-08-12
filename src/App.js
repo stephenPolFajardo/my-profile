@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+
 import "./App.css";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      winner: []
+      winner: undefined
     };
     this.gameState = {
       turn: "X",
@@ -108,9 +109,14 @@ class App extends Component {
 
   replayGame() {
     this.gameState.gameEnded = false;
+    this.gameState.totalMoves = 0;
     const countDiv = document.querySelectorAll("div.box");
-    document.getElementById("status").innerHTML ="";
-    document.getElementById("turn").innerHTML = "Play";
+    document.getElementById("status").innerHTML = "";
+    if(this.gameState.turn === 'O'){
+      document.getElementById("turn").innerHTML = "The First Turn is Player 2";
+    }else if(this.gameState.turn === 'X') {
+      document.getElementById("turn").innerHTML = "The First Turn is Player 1";
+    }
     for (let n = 0; countDiv.length; n++) {
       this.gameState.board[n] = "";
       countDiv[n].innerHTML = "";
@@ -118,7 +124,6 @@ class App extends Component {
     this.gameState({
       turn: "X",
       board: Array(9).fill(""),
-      totalMoves: 0
     });
   }
 
