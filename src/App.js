@@ -6,7 +6,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      winner: undefined
+      winner: []
     };
     this.gameState = {
       turn: "X",
@@ -14,15 +14,18 @@ class App extends Component {
       gameEnded: false,
       board: Array(9).fill(""),
       totalMoves: 0,
+      playerOne: 0,
+      playerTwo: 0,
       tokenPlace: []
     };
     this.historList = [];
   }
 
   clicked(box) {
-    if (this.gameState.gameEnded || this.gameState.gameLocked) return;
+    if (this.gameState.gameEnded || this.gameState.gameLocked)return
     if (this.gameState.board[box.dataset.set] === "") {
       this.gameState.board[box.dataset.set] = this.gameState.turn;
+
       box.innerText = this.gameState.turn;
       this.gameState.turn = this.gameState.turn === "X" ? "O" : "X";
       this.gameState.totalMoves++;
@@ -38,6 +41,7 @@ class App extends Component {
       }
     }
 
+
     var result = this.checkWinner();
 
     if (result === "X") {
@@ -47,9 +51,11 @@ class App extends Component {
         winner: "X",
         winnerLine: "Player 1 is win!"
       });
-      for (const [index, value] of this.gameState.tokenPlace.entries()) {
-        this.historList.push(<li key={index}>{value}</li>);
-      }
+      // for (const [index, value] of this.gameState.tokenPlace.entries()) {
+      //   this.historList.push(<li key={index}>{value}</li>);
+      // }
+      this.gameState.playerOne ++;
+      document.getElementById("play1").innerHTML = "Player 1 Score: " + this.gameState.playerOne;
     } else if (result === "O") {
       this.gameState.gameEnded = true;
       document.getElementById("turn").innerHTML = "Congratulations";
@@ -57,9 +63,11 @@ class App extends Component {
         winner: "O",
         winnerLine: "Player 2 is win!"
       });
-      for (const [index, value] of this.gameState.tokenPlace.entries()) {
-        this.historList.push(<li key={index}>{value}</li>);
-      }
+      // for (const [index, value] of this.gameState.tokenPlace.entries()) {
+      //   this.historList.push(<li key={index}>{value}</li>);
+      // }
+      this.gameState.playerTwo ++;
+      document.getElementById("play2").innerHTML = "Player 2 Score: " + this.gameState.playerTwo;
     } else if (result === "draw") {
       this.gameState.gameEnded = true;
       document.getElementById("turn").innerHTML = "Play Again";
@@ -67,10 +75,11 @@ class App extends Component {
         winner: "draw",
         winnerLine: "This match is draw"
       });
-      for (const [index, value] of this.gameState.tokenPlace.entries()) {
-        this.historList.push(<li key={index}>{value}</li>);
-      }
+      // for (const [index, value] of this.gameState.tokenPlace.entries()) {
+      //   this.historList.push(<li key={index}>{value}</li>);
+      // }
     }
+    return
   }
 
   checkWinner(square) {
@@ -98,29 +107,61 @@ class App extends Component {
   }
 
   replayGame() {
-    window.location.reload();
+    this.gameState.gameEnded = false;
+    const countDiv = document.querySelectorAll("div.box");
+    document.getElementById("status").innerHTML ="";
+    document.getElementById("turn").innerHTML = "Play";
+    for (let n = 0; countDiv.length; n++) {
+      this.gameState.board[n] = "";
+      countDiv[n].innerHTML = "";
+    }
+    this.gameState({
+      turn: "X",
+      board: Array(9).fill(""),
+      totalMoves: 0
+    });
   }
 
   render() {
     return (
       <div id="game">
+        <div id="play1"></div>
+        <div id="play2"></div>
         <div id="status">{this.state.winnerLine}</div>
         <div id="head" />
         <span id="turn">Play</span>
         <div id="board" onClick={e => this.clicked(e.target)}>
-          <div id="0" className="box" data-set="0" />
-          <div id="1" className="box" data-set="1" />
-          <div id="2" className="box" data-set="2" />
-          <div id="3" className="box" data-set="3" />
-          <div id="4" className="box" data-set="4" />
-          <div id="5" className="box" data-set="5" />
-          <div id="6" className="box" data-set="6" />
-          <div id="7" className="box" data-set="7" />
-          <div id="8" className="box" data-set="8" />
+          <div id="0" className="box" data-set="0">
+            {this.gameState.board[0]}
+          </div>
+          <div id="1" className="box" data-set="1">
+            {this.gameState.board[1]}
+          </div>
+          <div id="2" className="box" data-set="2">
+            {this.gameState.board[2]}
+          </div>
+          <div id="3" className="box" data-set="3">
+            {this.gameState.board[3]}
+          </div>
+          <div id="4" className="box" data-set="4">
+            {this.gameState.board[4]}
+          </div>
+          <div id="5" className="box" data-set="5">
+            {this.gameState.board[5]}
+          </div>
+          <div id="6" className="box" data-set="6">
+            {this.gameState.board[6]}
+          </div>
+          <div id="7" className="box" data-set="7">
+            {this.gameState.board[7]}
+          </div>
+          <div id="8" className="box" data-set="8">
+            {this.gameState.board[8]}
+          </div>
         </div>
-        <button onClick={this.replayGame}>Play Again</button>
+        <button onClick={() => this.replayGame()}>Play Again</button>
         <div id="tokenPlace">
-          <ul>{this.historList}</ul>
+          {/* <ul>{this.historList}</ul> */}
         </div>
       </div>
     );
