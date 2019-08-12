@@ -29,11 +29,11 @@ class App extends Component {
 
       if (this.gameState.turn === "X") {
         document.getElementById("turn").innerHTML = "Player 1 Is your turn now";
-        let p2 = "Player 2 move " + box.id;
+        let p2 = "Player 2 move block " + box.id;
         this.gameState.tokenPlace.push(p2);
       } else {
         document.getElementById("turn").innerHTML = "Player 2 Is your turn now";
-        let p2 = "Player 1 move " + box.id;
+        let p2 = "Player 1 move block " + box.id;
         this.gameState.tokenPlace.push(p2);
       }
     }
