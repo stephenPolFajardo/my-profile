@@ -23,28 +23,33 @@ class App extends Component {
   }
 
   clicked(box) {
+    this.moveSpan = document.getElementById("tokenPlace");
     if (this.gameState.gameEnded || this.gameState.gameLocked)return
     if (this.gameState.board[box.dataset.set] === "") {
       this.gameState.board[box.dataset.set] = this.gameState.turn;
-
+      this.cell = document.createElement('div');
+      this.cell.setAttribute('className', 'cellBlock');
+      this.br = document.createElement('br');
       box.innerText = this.gameState.turn;
       this.gameState.turn = this.gameState.turn === "X" ? "O" : "X";
       this.gameState.totalMoves++;
-
       if (this.gameState.turn === "X") {
         document.getElementById("turn").innerHTML = "Player 1 Is your turn now";
-        let p2 = "Player 2 move block " + box.id;
+        let p2 = "Player 2 move cell " + box.id;
         this.gameState.tokenPlace.push(p2);
+        this.cell.innerHTML = p2;
       } else {
         document.getElementById("turn").innerHTML = "Player 2 Is your turn now";
-        let p2 = "Player 1 move block " + box.id;
+        let p2 = "Player 1 move cell " + box.id;
         this.gameState.tokenPlace.push(p2);
+        this.cell.innerHTML = p2;
       }
+      this.moveSpan.append(this.cell);
+      this.cell.append(this.br);
     }
 
 
     var result = this.checkWinner();
-
     if (result === "X") {
       this.gameState.gameEnded = true;
       document.getElementById("turn").innerHTML = "Congratulations";
@@ -112,6 +117,7 @@ class App extends Component {
     this.gameState.totalMoves = 0;
     const countDiv = document.querySelectorAll("div.box");
     document.getElementById("status").innerHTML = "";
+    document.getElementById("tokenPlace").innerHTML = "";
     if(this.gameState.turn === 'O'){
       document.getElementById("turn").innerHTML = "The First Turn is Player 2";
     }else if(this.gameState.turn === 'X') {
@@ -124,6 +130,7 @@ class App extends Component {
     this.gameState({
       turn: "X",
       board: Array(9).fill(""),
+      tokenPlace: []
     });
   }
 
@@ -136,37 +143,37 @@ class App extends Component {
         <div id="head" />
         <span id="turn">Play</span>
         <div id="board" onClick={e => this.clicked(e.target)}>
-          <div id="0" className="box" data-set="0">
+          <div id="a:1" className="box" data-set="0">
             {this.gameState.board[0]}
           </div>
-          <div id="1" className="box" data-set="1">
+          <div id="b:1" className="box" data-set="1">
             {this.gameState.board[1]}
           </div>
-          <div id="2" className="box" data-set="2">
+          <div id="c:1" className="box" data-set="2">
             {this.gameState.board[2]}
           </div>
-          <div id="3" className="box" data-set="3">
+          <div id="a:2" className="box" data-set="3">
             {this.gameState.board[3]}
           </div>
-          <div id="4" className="box" data-set="4">
+          <div id="b:2" className="box" data-set="4">
             {this.gameState.board[4]}
           </div>
-          <div id="5" className="box" data-set="5">
+          <div id="c:2" className="box" data-set="5">
             {this.gameState.board[5]}
           </div>
-          <div id="6" className="box" data-set="6">
+          <div id="a:3" className="box" data-set="6">
             {this.gameState.board[6]}
           </div>
-          <div id="7" className="box" data-set="7">
+          <div id="b:3" className="box" data-set="7">
             {this.gameState.board[7]}
           </div>
-          <div id="8" className="box" data-set="8">
+          <div id="c:3" className="box" data-set="8">
             {this.gameState.board[8]}
           </div>
         </div>
         <button onClick={() => this.replayGame()}>Play Again</button>
         <div id="tokenPlace">
-          {/* <ul>{this.historList}</ul> */}
+          
         </div>
       </div>
     );
