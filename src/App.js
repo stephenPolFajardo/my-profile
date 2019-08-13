@@ -19,10 +19,10 @@ class App extends Component {
       playerTwo: 0,
       tokenPlace: []
     };
-    this.historList = [];
   }
 
   clicked(box) {
+    alert(this.gameState.tokenPlace);
     this.moveSpan = document.getElementById("tokenPlace");
     if (this.gameState.gameEnded || this.gameState.gameLocked)return
     if (this.gameState.board[box.dataset.set] === "") {
@@ -113,6 +113,7 @@ class App extends Component {
   }
 
   replayGame() {
+    this.gameState.tokenPlace.push(document.getElementById("status").innerHTML);
     this.gameState.gameEnded = false;
     this.gameState.totalMoves = 0;
     const countDiv = document.querySelectorAll("div.box");
