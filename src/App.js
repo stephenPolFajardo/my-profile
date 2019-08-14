@@ -15,13 +15,12 @@ function App() {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
-import React from "react";
+import React, { Component } from "react";
 import TicTacToe from "./tictactoe";
-import ReactDOM from "react-dom";
 
 import "./App.css";
 
-function App() {
+function App() extends Component {
   return (
     <div className="App">
       <h1>Start Here</h1>
@@ -30,5 +29,4 @@ function App() {
   );
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+export default App;
