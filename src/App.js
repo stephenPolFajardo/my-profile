@@ -22,7 +22,6 @@ class App extends Component {
   }
 
   clicked(box) {
-    alert(this.gameState.tokenPlace);
     this.moveSpan = document.getElementById("tokenPlace");
     if (this.gameState.gameEnded || this.gameState.gameLocked)return
     if (this.gameState.board[box.dataset.set] === "") {
