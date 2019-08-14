@@ -1,7 +1,6 @@
 import React from "react";
 import TicTacToe from "./tictactoe";
-import ReactDOM from "react-dom";
-
+import ReactDOM from 'react-dom';
 import "./App.css";
 
 function App() {
@@ -13,5 +12,5 @@ function App() {
   );
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+export default App;
+ReactDOM.render(<App />, document.getElementById('root'));
